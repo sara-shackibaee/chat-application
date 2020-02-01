@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>chat page*</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+       
+    </head>
+    <body >
+        <br>
+        
+        <div id="m2" style="width:300px ;height:300px ;background-color:yellow "></div>
+        <br>
+         name: <input type="text" id='n1' >
+         
+         message: <input type="text"  id='m1' ><br>
+         <br>
+        <button id='btn1'>Send</button>
+        
+        <script >
+
+            var socket = io.connect('http://localhost:4000/')
+             
+                   
+            $(document).ready(function(){
+                $("#btn1").click(function(){
+                   
+                    var name = $("#n1").val()
+                    var mess = $("#m1").val()
+                    console.log(name)
+                    console.log(mess)
+                    socket.emit('chat',{
+                        name:name,
+                        mess:mess
+                    })
+                
+                })
+                 
+                
+            })
+            
+         
+            socket.on('chat',function(data){
+
+                 $("#m2").append('<p>' + data.name + ":" + data.mess + '</p>')
+
+                    })
+                 
+        
+        </script>
+    </body>
+
+
+</html>
